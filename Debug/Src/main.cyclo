@@ -1,0 +1,9 @@
+../Src/main.c:16:6:MPU_Write	1
+../Src/main.c:25:6:MPU_Read	1
+../Src/main.c:61:6:MPU6050_Init	2
+../Src/main.c:93:6:MPU6050_Read_Accel	1
+../Src/main.c:115:6:TIM6Config	2
+../Src/main.c:135:6:Delay_us	2
+../Src/main.c:146:6:Delay_ms	2
+../Src/main.c:154:6:SysClockConfig	4
+../Src/main.c:209:5:main	1
