@@ -1,5 +1,6 @@
 
 #include <stm32f446xx.h>
+#include <stdint.h>
 void MPU6050_Init (void);
 void I2C_Config (void);
 

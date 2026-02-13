@@ -1,6 +1,6 @@
 
 #include <stm32f446xx.h>
-
+#include <stdint.h>
 void I2C_Config (void)
 {
 

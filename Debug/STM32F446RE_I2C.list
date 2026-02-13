@@ -757,7 +757,7 @@ Disassembly of section .text:
 08000a40 <I2C_Config>:
 
 #include <stm32f446xx.h>
-
+#include <stdint.h>
 void I2C_Config (void)
 {
  8000a40:	b480      	push	{r7}
