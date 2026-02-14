@@ -1,7 +1,6 @@
 ../Src/I2C.c:4:6:I2C_Config	1
 ../Src/I2C.c:35:6:I2C_Start	2
-../Src/I2C.c:48:6:I2C_Write	3
-../Src/I2C.c:60:6:I2C_Address	2
-../Src/I2C.c:72:6:I2C_Stop	1
-../Src/I2C.c:77:6:I2C_WriteMulti	5
-../Src/I2C.c:95:6:I2C_Read	9
+../Src/I2C.c:49:6:I2C_Write	3
+../Src/I2C.c:61:6:I2C_Address	2
+../Src/I2C.c:73:6:I2C_Stop	1
+../Src/I2C.c:80:6:I2C_Read	9

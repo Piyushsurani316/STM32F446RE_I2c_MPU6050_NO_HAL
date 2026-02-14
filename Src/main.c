@@ -34,7 +34,7 @@ void MPU_Read (uint8_t Address, uint8_t Reg, uint8_t *buffer, uint8_t size)
 }
 
 
-#define MPU6050_ADDR 0xD0
+#define MPU6050_ADDR 0xD0 // 0x68 but 1 bit left shift for add bit for read or write
 
 
 #define SMPLRT_DIV_REG 0x19
@@ -54,8 +54,9 @@ int16_t Accel_Z_RAW = 0;
 int16_t Gyro_X_RAW = 0;
 int16_t Gyro_Y_RAW = 0;
 int16_t Gyro_Z_RAW = 0;
+int16_t Temp_RAW =0;
 
-float Ax, Ay, Az, Gx, Gy, Gz;
+float Ax, Ay, Az, Gx, Gy, Gz,T;
 
 uint8_t check;
 
@@ -109,10 +110,46 @@ void MPU6050_Read_Accel (void)
 	     I have configured FS_SEL = 0. So I am dividing by 16384.0
 	     for more details check ACCEL_CONFIG Register              ****/
 
-	Ax = Accel_X_RAW/16384.0;
+	Ax = Accel_X_RAW/16384.0;// 16384 value given in datasheet
 	Ay = Accel_Y_RAW/16384.0;
 	Az = Accel_Z_RAW/16384.0;
 }
+
+void MPU6050_Read_Gyro (void)
+{
+
+	uint8_t Rx_data[6];
+
+	// Read 6 BYTES of data starting from ACCEL_XOUT_H register
+
+	MPU_Read (MPU6050_ADDR, GYRO_XOUT_H_REG, Rx_data, 6);
+
+	Gyro_X_RAW = (int16_t)(Rx_data[0] << 8 | Rx_data [1]);
+	Gyro_Y_RAW = (int16_t)(Rx_data[2] << 8 | Rx_data [3]);
+	Gyro_Z_RAW = (int16_t)(Rx_data[4] << 8 | Rx_data [5]);
+
+
+	Gx = Gyro_X_RAW/131.0;
+	Gy = Gyro_Y_RAW/131.0;
+	Gz = Gyro_Z_RAW/131.0;
+}
+void MPU6050_Read_Temp (void)
+{
+
+	uint8_t Rx_data[2];
+
+
+	MPU_Read (MPU6050_ADDR, TEMP_OUT_H_REG, Rx_data, 2);
+
+	Temp_RAW = (int16_t)(Rx_data[0] << 8 | Rx_data [1]);
+
+
+
+
+	T = ((Temp_RAW/340.0) + 36.53);
+
+}
+
 void TIM6Config (void)
 {
 	/************** STEPS TO FOLLOW *****************
@@ -217,6 +254,8 @@ int main ()
 	while (1)
 	{
 		MPU6050_Read_Accel ();
+		MPU6050_Read_Gyro ();
+		MPU6050_Read_Temp (); //temp of IC internal no room temp
 		Delay_ms (1000);
 	}
 }
